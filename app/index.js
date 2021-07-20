@@ -6,6 +6,8 @@ import './less/index.less';
 import {
     Home,
     Developing,
+
+    Antv,
     FirstDemo,
     Minimap
 } from './pages';
@@ -14,8 +16,11 @@ const App = ({history, location}) => {
     const router = {
         '': <Home/>,
         'home': <Home/>,
+
+        'antv': <Antv/>,
         'firstDemo': <FirstDemo/>,
         'minimap': <Minimap/>,
+
     };
     const {pathname} = location;
     const path = pathname.split('/')[1];

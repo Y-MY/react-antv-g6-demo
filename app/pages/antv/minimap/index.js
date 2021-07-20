@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {Button} from 'antd-mobile';
-import Topbar from "../../components/topbar/topbar";
-
+import Topbar from "../../../components/topbar/topbar";
+import Graph from "./graph";
 import './style/index.less';
 
-const prefix = "my_home";
+const prefix = "first-demo";
 
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+
+        };
     }
 
     componentWillMount() {
@@ -19,15 +20,14 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        let elementById = document.getElementById("mountNode");
+        console.log(elementById)
 
     }
+
 
     componentWillUnmount() {
 
-    }
-
-    handleClick = () => {
-        this.props.history.push('firstDemo')
     }
 
 
@@ -35,10 +35,9 @@ class Home extends Component {
 
         return (
             <div className={prefix}>
-                <Topbar title="首页" isShowBackBtn={false}/>
+                <Topbar title="minimap demo" onClick={() => this.props.history.goBack()}/>
                 <div className={prefix + "-box"}>
-                    <Button onClick={() =>  this.props.history.push('antv')}>antv demo</Button>
-                   {/* <Button onClick={() => this.handleClick()}>Minimap demo</Button>*/}
+                   <Graph/>
                 </div>
             </div>
         );

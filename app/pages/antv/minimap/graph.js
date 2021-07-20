@@ -1,7 +1,5 @@
 import React, {Component, useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import G6 from '@antv/g6';
 import {data,initData} from "./data";
 
@@ -15,10 +13,22 @@ export default function () {
 
     useEffect(() => {
         if (!graph) {
+
+            // 实例化 minimap 插件
+            const minimap = new G6.Minimap({
+                size: [100, 100],
+                className: 'minimap',
+                type: 'delegate',
+            });
+
+            // 实例化 grid 插件
+            const grid = new G6.Grid();
+
             graph = new G6.Graph({
                 container: ReactDOM.findDOMNode(ref.current),
                 width: 300,
-                height: 400,
+                height: 600,
+                plugins: [minimap, grid], // 将 minimap ， grid 实例配置到图上
                 fitView: true,//设置是否将图适配到画布中
                 fitViewPadding: [20, 40, 50, 20],//画布上四周的留白宽度
                 // 节点在默认状态下的样式配置（style）和其他配置
@@ -53,7 +63,30 @@ export default function () {
                     },
                 },
                 modes: {
-                    default: ['drag-canvas', 'zoom-canvas', 'drag-node'], // 允许拖拽画布、放缩画布、拖拽节点
+                    default: ['drag-canvas', 'zoom-canvas', 'drag-node',// 允许拖拽画布、放缩画布、拖拽节点
+                        {
+                            type: 'tooltip', // 提示框
+                            formatText(model) {
+                                // 提示框文本内容
+                                const text = 'label: ' + model.label + '<br/> class: ' + model.class;
+                                return text;
+                            },
+                        },
+                        {
+                            type: 'edge-tooltip', // 边提示框
+                            formatText(model) {
+                                // 边提示框文本内容
+                                const text =
+                                    'source: ' +
+                                    model.source +
+                                    '<br/> target: ' +
+                                    model.target +
+                                    '<br/> weight: ' +
+                                    model.weight;
+                                return text;
+                            },
+                        },
+                    ],
                 },
                 layout: {
                     type: 'dagre',

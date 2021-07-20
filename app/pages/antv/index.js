@@ -1,20 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import G6 from '@antv/g6';
-
+import {Button} from 'antd-mobile';
 import Topbar from "../../components/topbar/topbar";
-import Graph from "./graph";
+
 import './style/index.less';
 
-const prefix = "first-demo";
+const prefix = "my_home";
 
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-
-        };
+        this.state = {};
     }
 
     componentWillMount() {
@@ -22,26 +19,21 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        let elementById = document.getElementById("mountNode");
-        console.log(elementById)
 
     }
-
-
 
     componentWillUnmount() {
 
     }
 
-
-
     render() {
 
         return (
             <div className={prefix}>
-                <Topbar title="first demo" onClick={() => this.props.history.goBack()}/>
+                <Topbar title="Antv Demo" onClick={() => this.props.history.goBack()}/>
                 <div className={prefix + "-box"}>
-                   <Graph/>
+                    <Button onClick={() => this.props.history.push('firstDemo')}>first demo</Button>
+                    <Button onClick={() => this.props.history.push('minimap')}>Minimap demo</Button>
                 </div>
             </div>
         );
